@@ -4,16 +4,16 @@ interface Props { t: Translations; }
 const { t } = Astro.props;
 ---
 
-<section class="scroll-reveal reveal-right py-20 bg-white overflow-hidden border-t border-slate-100">
+<section class="scroll-reveal reveal-right py-14 sm:py-16 md:py-20 bg-white overflow-hidden border-t border-slate-100">
 
   <!-- Brand logos -->
-  <div class="px-8 md:px-16 lg:px-24 mb-16 max-w-7xl mx-auto">
+  <div class="px-5 sm:px-8 md:px-16 lg:px-24 mb-12 sm:mb-16 max-w-7xl mx-auto">
     <p class="text-center text-xs font-headline uppercase font-bold text-slate-400 mb-10" style="letter-spacing:.5em;">
       {t.partners.label}
     </p>
-    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 hover:opacity-100 transition-opacity duration-700 grayscale hover:grayscale-0">
+    <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-20 opacity-40 hover:opacity-100 transition-opacity duration-700 grayscale hover:grayscale-0">
       {t.partners.brands.map(brand => (
-        <div class="text-3xl md:text-4xl font-black font-headline text-secondary tracking-tighter">
+        <div class="text-2xl sm:text-3xl md:text-4xl font-black font-headline text-secondary tracking-tighter text-center">
           {brand}
         </div>
       ))}
@@ -21,18 +21,18 @@ const { t } = Astro.props;
   </div>
 
   <!-- Divider -->
-  <div class="h-px mx-8 md:mx-24 mb-16" style="background:linear-gradient(90deg,transparent,#e2e8f0,transparent);"></div>
+  <div class="h-px mx-5 sm:mx-8 md:mx-16 lg:mx-24 mb-12 sm:mb-16" style="background:linear-gradient(90deg,transparent,#e2e8f0,transparent);"></div>
 
   <!-- Testimonial -->
-  <div class="px-8 md:px-16 lg:px-24 max-w-4xl mx-auto">
-    <div class="bg-surface p-10 md:p-14 rounded-[2.5rem] relative border border-slate-50 shadow-inner">
+  <div class="px-5 sm:px-8 md:px-16 lg:px-24 max-w-4xl mx-auto">
+    <div class="bg-surface p-6 sm:p-10 md:p-14 rounded-3xl sm:rounded-[2.5rem] relative border border-slate-50 shadow-inner">
       <!-- Quote icon -->
       <span class="material-symbols-outlined absolute -top-8 -left-6 text-primary"
         style="font-size:5rem;opacity:.1;font-variation-settings:'FILL' 1,'wght' 400;">
         format_quote
       </span>
 
-      <p class="text-xl md:text-2xl font-body italic leading-relaxed text-secondary font-medium">
+      <p class="text-lg sm:text-xl md:text-2xl font-body italic leading-relaxed text-secondary font-medium">
         {t.partners.quote}
       </p>
 

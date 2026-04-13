@@ -1,6 +1,8 @@
 ---
 import type { Locale, Translations } from '../i18n/index';
 import { getLocalePath } from '../i18n/index';
+import logoImg from '../assets/logo.svg';
+import logoMobImg from '../assets/logoMob.svg';
 
 interface Props { lang: Locale; t: Translations; }
 const { lang, t } = Astro.props;
@@ -8,17 +10,28 @@ const otherLang: Locale = lang === 'es' ? 'en' : 'es';
 ---
 
 <nav id="site-nav" class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 transition-shadow duration-300">
-  <div class="flex justify-between items-center w-full px-6 lg:px-8 py-4 max-w-screen-2xl mx-auto">
+  <div class="flex justify-between items-center w-full px-5 sm:px-6 lg:px-8 py-3.5 sm:py-4 max-w-screen-2xl mx-auto">
 
-    <!-- Logo -->
-    <a href={getLocalePath(lang)} class="flex items-center gap-3 group">
-      <svg viewBox="0 0 40 40" fill="none" style="width:36px;height:36px;flex-shrink:0;">
-        <rect width="40" height="40" rx="4" fill="#1b4fb3"/>
-        <path d="M8 30 L20 12 L32 30" stroke="#00b4d8" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <path d="M13 30 L20 18 L27 30" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <rect x="15" y="26" width="10" height="4" rx="1" fill="#00b4d8"/>
-      </svg>
-      <span class="text-xl font-black tracking-tighter text-secondary font-headline uppercase leading-none">VALDIVIA</span>
+    <!-- Logo: wordmark escritorio / marca compacta móvil -->
+    <a href={getLocalePath(lang)} class="flex items-center shrink-0 min-w-0 group" aria-label="Valdivia Automotores — Inicio">
+      <img
+        src={logoImg.src}
+        alt=""
+        width={316}
+        height={36}
+        class="hidden h-8 w-auto max-h-9 sm:block md:h-9"
+        loading="eager"
+        decoding="async"
+      />
+      <img
+        src={logoMobImg.src}
+        alt=""
+        width={306}
+        height={153}
+        class="block h-10 w-auto max-h-11 sm:hidden"
+        loading="eager"
+        decoding="async"
+      />
     </a>
 
     <!-- Desktop Nav -->
@@ -89,14 +102,15 @@ const otherLang: Locale = lang === 'es' ? 'en' : 'es';
       </a>
 
       <!-- Hamburger -->
-      <button id="hamburger" class="lg:hidden p-2 text-secondary hover:text-primary transition-colors" aria-label="Abrir menú">
-        <span class="material-symbols-outlined">menu</span>
+      <button id="hamburger" type="button" class="lg:hidden p-2 -mr-1 text-secondary hover:text-primary transition-colors" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="material-symbols-outlined icon-menu" aria-hidden="true">menu</span>
+        <span class="material-symbols-outlined icon-close hidden" aria-hidden="true">close</span>
       </button>
     </div>
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-6 py-6 flex flex-col gap-2">
+  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-5 sm:px-6 py-5 sm:py-6 flex flex-col gap-1 max-h-[min(70vh,calc(100dvh-5rem))] overflow-y-auto overscroll-contain">
     <a href="#catalog"  class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.vehicles}</a>
     <a href="#"         class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.aftersales}</a>
     <a href="#"         class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.services}</a>
@@ -112,11 +126,32 @@ const otherLang: Locale = lang === 'es' ? 'en' : 'es';
     nav?.classList.toggle('shadow-md', window.scrollY > 30);
   }, { passive: true });
 
-  // Hamburger
+  // Hamburger + menú móvil
   const btn  = document.getElementById('hamburger');
   const menu = document.getElementById('mobile-menu');
+  const iconMenu = btn?.querySelector('.icon-menu');
+  const iconClose = btn?.querySelector('.icon-close');
+
+  function setMenuOpen(open) {
+    if (!menu || !btn) return;
+    menu.classList.toggle('hidden', !open);
+    menu.classList.toggle('flex', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    iconMenu?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
   btn?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false;
-    menu?.classList.toggle('flex', open);
+    const willOpen = menu?.classList.contains('hidden');
+    setMenuOpen(!!willOpen);
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) setMenuOpen(false);
   });
 </script>

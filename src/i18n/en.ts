@@ -1,9 +1,10 @@
-import type { Translations } from './es';
+import type { Translations } from './es'
 
 export const en: Translations = {
   meta: {
     title: 'Valdivia Automotores | Fleet Specialist for Mining',
-    description: 'Precision engineering and high-performance logistics for the world\'s most demanding environments. Leading mining mobility in the region.',
+    description:
+      "Precision engineering and high-performance logistics for the world's most demanding environments. Leading mining mobility in the region.",
   },
   nav: {
     vehicles: 'Vehicles',
@@ -26,10 +27,10 @@ export const en: Translations = {
     cta: 'Contact Us',
   },
   hero: {
-    title1: 'Power and Safety:',
     title2: 'Automotive Solutions',
     title3: 'and Fleets for the Mining Industry',
-    subtitle: 'Precision engineering and high-performance logistics for the world\'s most demanding environments. Leading mining mobility in the region.',
+    subtitle:
+      "Precision engineering and high-performance logistics for the world's most demanding environments. Leading mining mobility in the region.",
     cta1: 'Quote Mining Fleet',
     cta2: 'View Catalog',
   },
@@ -37,7 +38,7 @@ export const en: Translations = {
     badge: 'Precision Logistics',
     title1: 'Built for',
     title2: 'Extreme Impact.',
-    body: 'Mining doesn\'t forgive. Your vehicles must withstand altitude, corrosion, and hostile terrain. At Valdivia Automotores, we don\'t just deliver fleets; we configure strategic assets fortified with the latest monitoring and active safety technology.',
+    body: "Mining doesn't forgive. Your vehicles must withstand altitude, corrosion, and hostile terrain. At Valdivia Automotores, we don't just deliver fleets; we configure strategic assets fortified with the latest monitoring and active safety technology.",
     feat1: 'Custom Mining Spec Adaptation',
     feat2: 'Real-Time Telemetry',
   },
@@ -48,38 +49,39 @@ export const en: Translations = {
     cta: 'Technical Details',
     vehicles: [
       {
-        brand:    'BAIC',
-        model:    'BJ40 Plus Mining Spec',
-        desc:     'Reinforced structural resistance and intelligent all-wheel drive.',
-        tags:     ['4x4 High', 'Diesel Tech'],
-        tag_style:['default', 'default'],
+        brand: 'BAIC',
+        model: 'BJ40 Plus Mining Spec',
+        desc: 'Reinforced structural resistance and intelligent all-wheel drive.',
+        tags: ['4x4 High', 'Diesel Tech'],
+        tag_style: ['default', 'default'],
       },
       {
-        brand:    'BYD',
-        model:    'BYD T3 Electric Fleet',
-        desc:     'Sustainable energy efficiency for camp operations.',
-        tags:     ['Zero Emission', '300KM Range'],
-        tag_style:['primary', 'primary'],
+        brand: 'BYD',
+        model: 'BYD T3 Electric Fleet',
+        desc: 'Sustainable energy efficiency for camp operations.',
+        tags: ['Zero Emission', '300KM Range'],
+        tag_style: ['primary', 'primary'],
       },
       {
-        brand:    'FOTON',
-        model:    'Foton G7 Heavy Duty',
-        desc:     'The load beast for critical material transport.',
-        tags:     ['1 Ton Payload', 'Anti-Roll Bar'],
-        tag_style:['default', 'default'],
+        brand: 'FOTON',
+        model: 'Foton G7 Heavy Duty',
+        desc: 'The load beast for critical material transport.',
+        tags: ['1 Ton Payload', 'Anti-Roll Bar'],
+        tag_style: ['default', 'default'],
       },
     ],
   },
   partners: {
     label: 'Authorized Mining Partner',
     brands: ['BAIC', 'BYD', 'FOTON', 'VOLKSWAGEN'],
-    quote: '"Valdivia Automotores transformed our operational logistics in the Andes. Not just because of the vehicles, but because of the 24/7 technical support that ensures our production never stops."',
+    quote:
+      '"Valdivia Automotores transformed our operational logistics in the Andes. Not just because of the vehicles, but because of the 24/7 technical support that ensures our production never stops."',
     author_name: 'Eng. Ricardo Mendez',
     author_role: 'Logistics Director — Minera del Norte',
   },
   contact: {
     badge: 'Start Your Upgrade',
-    title1: 'Let\'s Talk About',
+    title1: "Let's Talk About",
     title2: 'Your Next',
     title3: 'Fleet.',
     body: 'Our team of automotive mining engineering experts is ready to design a proposal tailored to your operational KPIs.',
@@ -87,21 +89,21 @@ export const en: Translations = {
     email: 'corporate@valdivia.com.ar',
     address: 'Technology District, Buenos Aires',
     fields: {
-      name:    'Full Name',
-      email:   'Corporate Email',
+      name: 'Full Name',
+      email: 'Corporate Email',
       company: 'Mining Company',
       message: 'Special Requirements',
     },
     placeholders: {
-      name:    'Write your name',
-      email:   'user@company.com',
+      name: 'Write your name',
+      email: 'user@company.com',
       company: 'Company name',
       message: 'Description of the request',
     },
-    submit: 'Send',
+    submit: 'Send Inquiry',
   },
   footer: {
     copy: '© 2024 Valdivia Automotores. Precision Engineered.',
     links: ['Privacy Policy', 'Terms of Service', 'Cookies', 'Contact', 'Locations'],
   },
-};
+}

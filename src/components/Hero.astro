@@ -4,7 +4,7 @@ interface Props { t: Translations; }
 const { t } = Astro.props;
 ---
 
-<section id="hero" class="scroll-reveal reveal-left relative h-screen w-full flex items-center overflow-hidden bg-white">
+<section id="hero" class="scroll-reveal reveal-left relative min-h-[100dvh] min-h-screen w-full flex items-center overflow-hidden bg-white pt-[max(5.25rem,env(safe-area-inset-top,0px))] pb-10 md:pb-12">
 
   <!-- Background image placeholder with gradient overlay -->
   <div class="absolute inset-0 z-0">
@@ -119,10 +119,9 @@ const { t } = Astro.props;
   </div>
 
   <!-- Content -->
-  <div class="relative z-10 px-8 md:px-16 lg:px-24 w-full max-w-7xl">
+  <div class="relative z-10 px-5 sm:px-8 md:px-16 lg:px-24 w-full max-w-7xl mx-auto">
     <h1 class="font-headline font-black text-secondary leading-none uppercase max-w-3xl tracking-normal"
       style="font-size:clamp(2.5rem, 7vw, 5.5rem);">
-      {t.hero.title1}
       <span class="text-primary block">{t.hero.title2}</span>
       <span class="text-secondary block">{t.hero.title3}</span>
     </h1>
@@ -132,13 +131,13 @@ const { t } = Astro.props;
       {t.hero.subtitle}
     </p>
 
-    <div class="mt-10 flex flex-wrap gap-4">
+    <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto max-w-md sm:max-w-none">
       <a href="#contact"
-        class="diagonal-btn bg-primary-gradient text-white px-10 py-4 text-lg">
+        class="diagonal-btn bg-primary-gradient text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg text-center justify-center w-full sm:w-auto">
         {t.hero.cta1}
       </a>
       <a href="#catalog"
-        class="diagonal-btn border-2 border-secondary text-secondary px-10 py-4 text-lg hover:bg-secondary hover:text-white transition-colors">
+        class="diagonal-btn border-2 border-secondary text-secondary px-8 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg hover:bg-secondary hover:text-white transition-colors text-center justify-center w-full sm:w-auto">
         {t.hero.cta2}
       </a>
     </div>

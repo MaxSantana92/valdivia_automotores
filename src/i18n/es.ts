@@ -1,7 +1,8 @@
 export const es = {
   meta: {
     title: 'Valdivia Automotores | Especialistas en Flotas para Minería',
-    description: 'Ingeniería de precisión y logística de alto desempeño para los entornos más exigentes del mundo. Lideramos la movilidad minera en la región.',
+    description:
+      'Ingeniería de precisión y logística de alto desempeño para los entornos más exigentes del mundo. Lideramos la movilidad minera en la región.',
   },
   nav: {
     vehicles: 'Vehículos',
@@ -24,10 +25,10 @@ export const es = {
     cta: 'Contáctenos',
   },
   hero: {
-    title1: 'Potencia y Seguridad:',
     title2: 'Soluciones Automotrices',
     title3: 'y Flotas para la Industria Minera',
-    subtitle: 'Ingeniería de precisión y logística de alto desempeño para los entornos más exigentes del mundo. Lideramos la movilidad minera en la región.',
+    subtitle:
+      'Ingeniería de precisión y logística de alto desempeño para los entornos más exigentes del mundo. Lideramos la movilidad minera en la región.',
     cta1: 'Cotizar Flota Minera',
     cta2: 'Ver Catálogo',
   },
@@ -46,32 +47,33 @@ export const es = {
     cta: 'Detalles Técnicos',
     vehicles: [
       {
-        brand:    'BAIC',
-        model:    'BJ40 Plus Mining Spec',
-        desc:     'Resistencia estructural reforzada y tracción total inteligente.',
-        tags:     ['4x4 High', 'Diesel Tech'],
-        tag_style:['default', 'default'],
+        brand: 'BAIC',
+        model: 'BJ40 Plus Mining Spec',
+        desc: 'Resistencia estructural reforzada y tracción total inteligente.',
+        tags: ['4x4 High', 'Diesel Tech'],
+        tag_style: ['default', 'default'],
       },
       {
-        brand:    'BYD',
-        model:    'BYD T3 Electric Fleet',
-        desc:     'Eficiencia energética sustentable para operaciones de campamento.',
-        tags:     ['Zero Emission', '300KM Range'],
-        tag_style:['primary', 'primary'],
+        brand: 'BYD',
+        model: 'BYD T3 Electric Fleet',
+        desc: 'Eficiencia energética sustentable para operaciones de campamento.',
+        tags: ['Zero Emission', '300KM Range'],
+        tag_style: ['primary', 'primary'],
       },
       {
-        brand:    'FOTON',
-        model:    'Foton G7 Heavy Duty',
-        desc:     'La bestia de carga para transporte de materiales críticos.',
-        tags:     ['1 Ton Payload', 'Anti-Roll Bar'],
-        tag_style:['default', 'default'],
+        brand: 'FOTON',
+        model: 'Foton G7 Heavy Duty',
+        desc: 'La bestia de carga para transporte de materiales críticos.',
+        tags: ['1 Ton Payload', 'Anti-Roll Bar'],
+        tag_style: ['default', 'default'],
       },
     ],
   },
   partners: {
     label: 'Authorized Mining Partner',
     brands: ['BAIC', 'BYD', 'FOTON', 'VOLKSWAGEN'],
-    quote: '"Valdivia Automotores transformó nuestra logística operacional en los Andes. No solo por los vehículos, sino por el soporte técnico 24/7 que garantiza que nuestra producción nunca se detenga."',
+    quote:
+      '"Valdivia Automotores transformó nuestra logística operacional en los Andes. No solo por los vehículos, sino por el soporte técnico 24/7 que garantiza que nuestra producción nunca se detenga."',
     author_name: 'Ing. Ricardo Mendez',
     author_role: 'Director de Logística — Minera del Norte',
   },
@@ -85,23 +87,23 @@ export const es = {
     email: 'corporate@valdivia.com.ar',
     address: 'Distrito Tecnológico, Buenos Aires',
     fields: {
-      name:    'Nombre Completo',
-      email:   'Email Corporativo',
+      name: 'Nombre Completo',
+      email: 'Email Corporativo',
       company: 'Empresa Minera',
       message: 'Requerimientos Especiales',
     },
     placeholders: {
-      name:    'Escriba su nombre',
-      email:   'usuario@empresa.com',
+      name: 'Escriba su nombre',
+      email: 'usuario@empresa.com',
       company: 'Nombre de la compañía',
       message: 'Descripción de la solicitud',
     },
-    submit: 'Enviar',
+    submit: 'Enviar Consulta',
   },
   footer: {
     copy: '© 2024 Valdivia Automotores. Precision Engineered.',
     links: ['Privacy Policy', 'Terms of Service', 'Cookies', 'Contact', 'Locations'],
   },
-} as const;
+} as const
 
-export type Translations = typeof es;
+export type Translations = typeof es
