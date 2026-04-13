@@ -1,0 +1,140 @@
+---
+import type { Translations } from '../i18n/index';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+---
+
+<section id="contact" class="scroll-reveal reveal-left py-24 bg-surface px-8 md:px-16 lg:px-24 border-t border-slate-100">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start max-w-7xl mx-auto">
+
+    <!-- Left: Info -->
+    <div>
+      <h3 class="text-sm font-headline text-primary uppercase mb-4" style="letter-spacing:.3em;">{t.contact.badge}</h3>
+      <h4 class="font-headline font-black uppercase text-secondary leading-tight"
+        style="font-size:clamp(2rem,5vw,3.5rem);">
+        {t.contact.title1}<br/>
+        {t.contact.title2}
+        <span class="text-primary"> {t.contact.title3}</span>
+      </h4>
+      <p class="mt-8 text-slate-600 font-medium leading-relaxed">{t.contact.body}</p>
+
+      <!-- Contact items -->
+      <div class="mt-12 space-y-6">
+        {[
+          { icon: 'call',        text: t.contact.phone   },
+          { icon: 'mail',        text: t.contact.email   },
+          { icon: 'location_on', text: t.contact.address },
+        ].map(c => (
+          <div class="flex items-center gap-6 group">
+            <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-200 flex-shrink-0">
+              <span class="material-symbols-outlined" style="font-size:1.25rem;">{c.icon}</span>
+            </div>
+            <span class="font-bold text-secondary text-lg">{c.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="bg-white p-10 md:p-12 shadow-2xl rounded-3xl border border-slate-50">
+      <form id="contact-form" novalidate class="space-y-8">
+        <!-- Honeypot -->
+        <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
+
+        <!-- Name -->
+        <div class="form-group">
+          <label class="form-lbl">{t.contact.fields.name}</label>
+          <input type="text" name="name" required
+            placeholder={t.contact.placeholders.name}
+            class="input-underline" autocomplete="name" />
+          <span class="form-err hidden text-red-400 text-xs mt-1"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-lbl">{t.contact.fields.email}</label>
+          <input type="email" name="email" required
+            placeholder={t.contact.placeholders.email}
+            class="input-underline" autocomplete="email" />
+          <span class="form-err hidden text-red-400 text-xs mt-1"></span>
+        </div>
+
+        <!-- Company -->
+        <div class="form-group">
+          <label class="form-lbl">{t.contact.fields.company}</label>
+          <input type="text" name="company" required
+            placeholder={t.contact.placeholders.company}
+            class="input-underline" autocomplete="organization" />
+          <span class="form-err hidden text-red-400 text-xs mt-1"></span>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label class="form-lbl">{t.contact.fields.message}</label>
+          <textarea name="message" rows="4"
+            placeholder={t.contact.placeholders.message}
+            class="input-underline resize-none"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" id="form-submit"
+          class="diagonal-btn w-full bg-primary-gradient text-white py-5 text-xl font-bold mt-2" style="letter-spacing:.3em;">
+          {t.contact.submit}
+        </button>
+      </form>
+
+      <!-- Success state -->
+      <div id="form-success" class="hidden text-center py-8">
+        <span class="material-symbols-outlined text-primary block mb-3" style="font-size:3rem;font-variation-settings:'FILL' 1,'wght' 400;">check_circle</span>
+        <p class="font-headline font-bold text-secondary text-2xl uppercase mb-2" style="letter-spacing:.08em;">¡Consulta Enviada!</p>
+        <p class="text-slate-500 font-medium">Un asesor se contactará en menos de 2 horas hábiles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .form-lbl {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: .25rem;
+    transition: color .2s;
+  }
+  .form-group:focus-within .form-lbl { color: #1b4fb3; }
+</style>
+
+<script>
+  const form    = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('form-success');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // Honeypot check
+    if ((form.querySelector('[name="_honey"]') as HTMLInputElement)?.value) return;
+
+    let valid = true;
+    form.querySelectorAll('input[required]').forEach(el => {
+      const inp = el as HTMLInputElement;
+      const err = inp.closest('.form-group')?.querySelector('.form-err');
+      if (!inp.value.trim()) {
+        valid = false;
+        inp.style.borderBottomColor = '#f87171';
+        if (err) { err.textContent = 'Campo requerido'; err.classList.remove('hidden'); }
+      } else {
+        inp.style.borderBottomColor = '';
+        err?.classList.add('hidden');
+      }
+    });
+    if (!valid) return;
+
+    document.getElementById('form-submit')?.setAttribute('disabled','true');
+    await new Promise(r => setTimeout(r, 1000));
+    form.classList.add('hidden');
+    success?.classList.remove('hidden');
+  });
+</script>

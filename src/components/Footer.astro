@@ -1,0 +1,41 @@
+---
+import type { Locale, Translations } from '../i18n/index';
+interface Props { lang: Locale; t: Translations; }
+const { t } = Astro.props;
+---
+
+<footer class="bg-white border-t border-slate-100">
+  <div class="flex flex-col md:flex-row justify-between items-center px-8 md:px-12 py-10 w-full max-w-screen-2xl mx-auto gap-8">
+
+    <!-- Brand -->
+    <div class="flex flex-col items-center md:items-start">
+      <div class="flex items-center gap-3 mb-2">
+        <svg viewBox="0 0 40 40" fill="none" style="width:28px;height:28px;flex-shrink:0;">
+          <rect width="40" height="40" rx="4" fill="#1b4fb3"/>
+          <path d="M8 30 L20 12 L32 30" stroke="#00b4d8" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M13 30 L20 18 L27 30" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect x="15" y="26" width="10" height="4" rx="1" fill="#00b4d8"/>
+        </svg>
+        <span class="font-headline font-black text-secondary uppercase tracking-tighter text-lg">valdivia automotores</span>
+      </div>
+      <p class="text-xs font-headline uppercase font-bold text-slate-400" style="letter-spacing:.2em;">{t.footer.copy}</p>
+    </div>
+
+    <!-- Links -->
+    <div class="flex flex-wrap justify-center gap-x-10 gap-y-3">
+      {t.footer.links.map(link => (
+        <a href="#"
+          class="text-xs font-headline font-bold uppercase text-slate-500 hover:text-primary transition-colors"
+          style="letter-spacing:.18em;">
+          {link}
+        </a>
+      ))}
+    </div>
+
+    <!-- Social icons -->
+    <div class="flex gap-4">
+      <span class="material-symbols-outlined text-slate-300 cursor-pointer hover:text-primary transition-colors" style="font-size:1.3rem;">public</span>
+      <span class="material-symbols-outlined text-slate-300 cursor-pointer hover:text-primary transition-colors" style="font-size:1.3rem;">share</span>
+    </div>
+  </div>
+</footer>

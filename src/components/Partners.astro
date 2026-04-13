@@ -1,0 +1,50 @@
+---
+import type { Translations } from '../i18n/index';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+---
+
+<section class="scroll-reveal reveal-right py-20 bg-white overflow-hidden border-t border-slate-100">
+
+  <!-- Brand logos -->
+  <div class="px-8 md:px-16 lg:px-24 mb-16 max-w-7xl mx-auto">
+    <p class="text-center text-xs font-headline uppercase font-bold text-slate-400 mb-10" style="letter-spacing:.5em;">
+      {t.partners.label}
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 hover:opacity-100 transition-opacity duration-700 grayscale hover:grayscale-0">
+      {t.partners.brands.map(brand => (
+        <div class="text-3xl md:text-4xl font-black font-headline text-secondary tracking-tighter">
+          {brand}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="h-px mx-8 md:mx-24 mb-16" style="background:linear-gradient(90deg,transparent,#e2e8f0,transparent);"></div>
+
+  <!-- Testimonial -->
+  <div class="px-8 md:px-16 lg:px-24 max-w-4xl mx-auto">
+    <div class="bg-surface p-10 md:p-14 rounded-[2.5rem] relative border border-slate-50 shadow-inner">
+      <!-- Quote icon -->
+      <span class="material-symbols-outlined absolute -top-8 -left-6 text-primary"
+        style="font-size:5rem;opacity:.1;font-variation-settings:'FILL' 1,'wght' 400;">
+        format_quote
+      </span>
+
+      <p class="text-xl md:text-2xl font-body italic leading-relaxed text-secondary font-medium">
+        {t.partners.quote}
+      </p>
+
+      <div class="mt-10 flex items-center gap-5">
+        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-primary" style="font-size:1.75rem;">person</span>
+        </div>
+        <div>
+          <p class="font-bold font-headline uppercase text-secondary text-lg" style="letter-spacing:.12em;">{t.partners.author_name}</p>
+          <p class="text-sm text-slate-500 font-medium mt-0.5">{t.partners.author_role}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

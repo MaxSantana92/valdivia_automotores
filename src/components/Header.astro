@@ -1,0 +1,122 @@
+---
+import type { Locale, Translations } from '../i18n/index';
+import { getLocalePath } from '../i18n/index';
+
+interface Props { lang: Locale; t: Translations; }
+const { lang, t } = Astro.props;
+const otherLang: Locale = lang === 'es' ? 'en' : 'es';
+---
+
+<nav id="site-nav" class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 transition-shadow duration-300">
+  <div class="flex justify-between items-center w-full px-6 lg:px-8 py-4 max-w-screen-2xl mx-auto">
+
+    <!-- Logo -->
+    <a href={getLocalePath(lang)} class="flex items-center gap-3 group">
+      <svg viewBox="0 0 40 40" fill="none" style="width:36px;height:36px;flex-shrink:0;">
+        <rect width="40" height="40" rx="4" fill="#1b4fb3"/>
+        <path d="M8 30 L20 12 L32 30" stroke="#00b4d8" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M13 30 L20 18 L27 30" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="15" y="26" width="10" height="4" rx="1" fill="#00b4d8"/>
+      </svg>
+      <span class="text-xl font-black tracking-tighter text-secondary font-headline uppercase leading-none">VALDIVIA</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden lg:flex items-center gap-8">
+
+      <!-- Vehículos dropdown -->
+      <div class="nav-dropdown relative group cursor-pointer py-2">
+        <div class="flex items-center gap-1 text-secondary font-headline uppercase tracking-wider text-sm font-bold group-hover:text-primary transition-colors">
+          {t.nav.vehicles}
+          <span class="material-symbols-outlined" style="font-size:.9rem;">expand_more</span>
+        </div>
+        <div class="dropdown-menu absolute top-full left-0 w-44 bg-white shadow-2xl rounded-lg p-3 border border-slate-50 mt-1">
+          <a href="#catalog" class="block py-2.5 px-3 text-sm font-headline uppercase font-bold text-secondary hover:text-primary hover:bg-slate-50 rounded transition-colors">{t.nav.vehicles_0km}</a>
+          <a href="#catalog" class="block py-2.5 px-3 text-sm font-headline uppercase font-bold text-secondary hover:text-primary hover:bg-slate-50 rounded transition-colors">{t.nav.vehicles_used}</a>
+        </div>
+      </div>
+
+      <!-- Postventa dropdown -->
+      <div class="nav-dropdown relative group cursor-pointer py-2">
+        <div class="flex items-center gap-1 text-secondary font-headline uppercase tracking-wider text-sm font-bold group-hover:text-primary transition-colors">
+          {t.nav.aftersales}
+          <span class="material-symbols-outlined" style="font-size:.9rem;">expand_more</span>
+        </div>
+        <div class="dropdown-menu absolute top-full left-0 w-72 bg-white shadow-2xl rounded-lg p-3 border border-slate-50 mt-1">
+          {t.nav.aftersales_items.map((item, i) => (
+            <a href="#" class={`block py-2.5 px-3 text-xs font-headline uppercase font-bold text-secondary hover:text-primary hover:bg-slate-50 rounded transition-colors ${i < t.nav.aftersales_items.length - 1 ? 'border-b border-slate-50' : ''}`}>
+              {item}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Servicios dropdown -->
+      <div class="nav-dropdown relative group cursor-pointer py-2">
+        <div class="flex items-center gap-1 text-secondary font-headline uppercase tracking-wider text-sm font-bold group-hover:text-primary transition-colors">
+          {t.nav.services}
+          <span class="material-symbols-outlined" style="font-size:.9rem;">expand_more</span>
+        </div>
+        <div class="dropdown-menu absolute top-full left-0 w-52 bg-white shadow-2xl rounded-lg p-3 border border-slate-50 mt-1">
+          {t.nav.services_items.map(item => (
+            <a href="#" class="block py-2.5 px-3 text-sm font-headline uppercase font-bold text-secondary hover:text-primary hover:bg-slate-50 rounded transition-colors">
+              {item}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Nosotros -->
+      <a href="#" class="text-secondary font-headline uppercase tracking-wider text-sm font-bold hover:text-primary transition-colors">
+        {t.nav.about}
+      </a>
+    </div>
+
+    <!-- Right: Lang + CTA + Hamburger -->
+    <div class="flex items-center gap-4">
+      <!-- Lang toggle -->
+      <a href={getLocalePath(otherLang)}
+        class="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors cursor-pointer"
+        title="Change language">
+        <span class="material-symbols-outlined" style="font-size:1.25rem;">language</span>
+        <span class="font-headline font-bold text-xs uppercase" style="letter-spacing:.15em;">{otherLang.toUpperCase()}</span>
+      </a>
+
+      <!-- CTA button -->
+      <a href="#contact"
+        class="diagonal-btn bg-primary-gradient text-white px-7 py-2.5 text-sm hidden md:inline-flex">
+        {t.nav.cta}
+      </a>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="lg:hidden p-2 text-secondary hover:text-primary transition-colors" aria-label="Abrir menú">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-6 py-6 flex flex-col gap-2">
+    <a href="#catalog"  class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.vehicles}</a>
+    <a href="#"         class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.aftersales}</a>
+    <a href="#"         class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.services}</a>
+    <a href="#"         class="py-3 font-headline font-bold uppercase text-sm text-secondary hover:text-primary border-b border-slate-50 transition-colors">{t.nav.about}</a>
+    <a href="#contact"  class="mt-3 diagonal-btn bg-primary-gradient text-white px-8 py-3 text-sm self-start">{t.nav.cta}</a>
+  </div>
+</nav>
+
+<script>
+  // Shadow on scroll
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('shadow-md', window.scrollY > 30);
+  }, { passive: true });
+
+  // Hamburger
+  const btn  = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    menu?.classList.toggle('flex', open);
+  });
+</script>

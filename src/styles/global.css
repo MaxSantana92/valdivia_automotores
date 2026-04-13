@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;700&display=swap');
+
+/* ── RESET ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Barlow', sans-serif;
+  background: #ffffff;
+  color: #0a1628;
+  overflow-x: hidden;
+}
+::selection { background: #1b4fb3; color: #ffffff; }
+
+/* ── TYPOGRAPHY ─────────────────────────────────── */
+.font-headline { font-family: 'Barlow Condensed', sans-serif; }
+
+/* ── DIAGONAL BUTTON ────────────────────────────── */
+.diagonal-btn {
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  cursor: pointer;
+  transition: filter .2s ease, transform .15s ease;
+  border: none;
+}
+.diagonal-btn:hover   { filter: brightness(1.08); }
+.diagonal-btn:active  { transform: scale(.97); }
+
+/* ── GRADIENT BRAND ─────────────────────────────── */
+.bg-primary-gradient { background: linear-gradient(90deg, #1b4fb3 0%, #00b4d8 100%); }
+
+/* ── SCROLL REVEAL ──────────────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.reveal-left  { transform: translateX(-60px); }
+.reveal-right { transform: translateX(60px); }
+.reveal-up    { transform: translateY(40px); }
+.scroll-reveal.is-visible { opacity: 1; transform: translate(0); }
+
+/* Stagger children */
+.stagger > *:nth-child(1) { transition-delay: .05s; }
+.stagger > *:nth-child(2) { transition-delay: .15s; }
+.stagger > *:nth-child(3) { transition-delay: .25s; }
+.stagger > *:nth-child(4) { transition-delay: .35s; }
+
+/* ── PERSPECTIVE CARD 3D ────────────────────────── */
+.perspective-card { perspective: 1000px; }
+.perspective-card-inner {
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  transform-style: preserve-3d;
+}
+.perspective-card:hover .perspective-card-inner {
+  transform: rotateY(5deg) rotateX(2deg) translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+/* ── SKELETON LOADER ────────────────────────────── */
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s infinite;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+@keyframes skeleton-pulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── BLUR-UP IMAGE ──────────────────────────────── */
+.blur-up { filter: blur(5px); transition: filter .6s ease-out; }
+.blur-up.loaded { filter: blur(0); }
+
+/* ── NAV DROPDOWN ───────────────────────────────── */
+.nav-dropdown .dropdown-menu {
+  display: none;
+  animation: fadeInDrop .2s ease-out;
+}
+.nav-dropdown:hover .dropdown-menu { display: block; }
+@keyframes fadeInDrop {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
+::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #1b4fb3; }
+
+/* ── FORM INPUTS ────────────────────────────────── */
+.input-underline {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #e2e8f0;
+  padding: .5rem 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .875rem;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: #0a1628;
+  outline: none;
+  transition: border-color .2s;
+}
+.input-underline:focus          { border-bottom-color: #1b4fb3; }
+.input-underline::placeholder   { color: #94a3b8; font-weight: 600; }
+
+/* ── WHATSAPP FLOAT ─────────────────────────────── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 60;
+  width: 4rem;
+  height: 4rem;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(37,211,102,.35);
+  transition: transform .25s, box-shadow .25s;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 40px rgba(37,211,102,.5);
+}

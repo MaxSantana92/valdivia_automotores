@@ -1,0 +1,76 @@
+---
+import type { Translations } from '../i18n/index';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+---
+
+<section id="solutions" class="relative py-28 overflow-hidden" style="background:#0d1f38;">
+  <!-- Diagonal top cut -->
+  <div class="absolute top-0 left-0 right-0 h-20 overflow-hidden pointer-events-none">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+      <polygon points="0,0 1440,80 1440,0" fill="#0a1628"/>
+    </svg>
+  </div>
+
+  <!-- Cyan glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] pointer-events-none"
+    style="background:radial-gradient(ellipse, rgba(0,180,216,0.06) 0%, transparent 70%);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <div class="section-badge mx-auto mb-6">
+        <span class="material-symbols-outlined" style="font-size:.85rem;">category</span>
+        {t.solutions.badge}
+      </div>
+      <h2 class="font-heading font-900 text-white mb-5"
+        style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em;">
+        {t.solutions.title}
+      </h2>
+      <p class="text-steel max-w-2xl mx-auto leading-relaxed" style="font-weight:300;">
+        {t.solutions.subtitle}
+      </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {t.solutions.items.map((item, i) => (
+        <div class={`glass-card p-8 group hover:border-cyan/40 transition-all duration-400 reveal stagger-${i+1}`}
+          style="border-radius:0;">
+          <!-- Icon -->
+          <div class="w-12 h-12 mb-6 flex items-center justify-center"
+            style="background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.25);">
+            <span class="material-symbols-outlined" style="color:#00b4d8;font-size:1.5rem;">{item.icon}</span>
+          </div>
+          <!-- Title -->
+          <h3 class="font-heading font-700 text-white mb-3 group-hover:text-cyan transition-colors"
+            style="font-size:1.25rem;font-weight:700;letter-spacing:.02em;">
+            {item.title}
+          </h3>
+          <!-- Desc -->
+          <p class="text-steel text-sm leading-relaxed" style="font-weight:300;font-size:.875rem;">
+            {item.desc}
+          </p>
+          <!-- Hover accent line -->
+          <div class="mt-6 w-0 h-px group-hover:w-12 transition-all duration-400"
+            style="background:#00b4d8;"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom divider accent -->
+    <div class="mt-20 flex items-center gap-6 reveal">
+      <div class="flex-1 h-px" style="background:linear-gradient(90deg, transparent, rgba(0,180,216,0.3));"></div>
+      <span class="font-heading text-xs tracking-widest text-steel uppercase" style="letter-spacing:.25em;">Toyota Certified</span>
+      <div class="flex-1 h-px" style="background:linear-gradient(90deg, rgba(0,180,216,0.3), transparent);"></div>
+    </div>
+  </div>
+
+  <!-- Diagonal bottom cut -->
+  <div class="absolute bottom-0 left-0 right-0 h-20 overflow-hidden pointer-events-none">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+      <polygon points="0,80 1440,0 1440,80" fill="#0a1628"/>
+    </svg>
+  </div>
+</section>

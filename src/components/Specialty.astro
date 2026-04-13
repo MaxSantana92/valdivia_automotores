@@ -1,0 +1,106 @@
+---
+import type { Translations } from '../i18n/index';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+---
+
+<section id="specialty" class="scroll-reveal reveal-right py-24 bg-surface px-8 md:px-16 lg:px-24 overflow-hidden border-t border-slate-100">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center max-w-7xl mx-auto">
+
+    <!-- Left text -->
+    <div class="md:col-span-5 relative">
+      <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+      <h2 class="text-sm font-headline text-primary uppercase mb-4" style="letter-spacing:.3em;">
+        {t.specialty.badge}
+      </h2>
+      <h3 class="font-headline font-black uppercase text-secondary leading-tight"
+        style="font-size:clamp(2rem,5vw,3.5rem);">
+        {t.specialty.title1}
+        <span class="text-slate-300 block">{t.specialty.title2}</span>
+      </h3>
+      <p class="mt-6 text-slate-600 leading-relaxed font-medium">
+        {t.specialty.body}
+      </p>
+
+      <!-- Feature items -->
+      <div class="mt-8 space-y-4">
+        {[
+          { icon: 'settings_input_component', label: t.specialty.feat1 },
+          { icon: 'monitoring',               label: t.specialty.feat2 },
+        ].map(f => (
+          <div class="flex items-center gap-4 group">
+            <div class="w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors border border-slate-100 flex-shrink-0">
+              <span class="material-symbols-outlined" style="font-size:1.3rem;">{f.icon}</span>
+            </div>
+            <span class="font-headline uppercase font-bold text-secondary" style="letter-spacing:.12em;">{f.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right: illustrated industrial card -->
+    <div class="md:col-span-7 relative">
+      <div class="bg-white p-6 rounded-2xl shadow-xl rotate-2 border border-slate-50 hover:-rotate-1 transition-transform duration-700">
+        <!-- Industrial visual placeholder (SVG) -->
+        <svg viewBox="0 0 620 380" class="w-full rounded-lg -rotate-3 hover:rotate-0 transition-transform duration-700 shadow-lg" style="background:#f0f5fc;" fill="none">
+          <!-- Grid pattern -->
+          <defs>
+            <pattern id="indGrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M40 0 L0 0 0 40" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="620" height="380" fill="url(#indGrid)"/>
+
+          <!-- Dashboard elements -->
+          <!-- Main card -->
+          <rect x="30" y="30" width="260" height="160" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+          <rect x="30" y="30" width="260" height="8" rx="12" fill="#1b4fb3"/>
+          <rect x="50" y="58" width="80" height="10" rx="4" fill="#e2e8f0"/>
+          <rect x="50" y="76" width="120" height="8" rx="4" fill="#f1f5f9"/>
+          <!-- Gauge circle -->
+          <circle cx="200" cy="120" r="45" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+          <path d="M200 120 m-35 0 a35 35 0 0 1 50 -28" stroke="#1b4fb3" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M200 120 m-35 0 a35 35 0 0 1 70 0"   stroke="#00b4d8" stroke-width="6" stroke-linecap="round" fill="none" opacity=".4"/>
+          <text x="200" y="125" text-anchor="middle" font-size="14" font-family="Barlow Condensed" font-weight="700" fill="#0a1628">87%</text>
+          <text x="200" y="140" text-anchor="middle" font-size="8"  font-family="Barlow Condensed" fill="#64748b">UPTIME</text>
+
+          <!-- Telemetry card -->
+          <rect x="330" y="30" width="260" height="160" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+          <rect x="330" y="30" width="260" height="8" rx="12" fill="#00b4d8"/>
+          <rect x="350" y="58" width="90" height="10" rx="4" fill="#e2e8f0"/>
+
+          <!-- Sparkline -->
+          <polyline points="350,170 380,145 410,155 440,120 470,130 500,100 530,110 560,90"
+            stroke="#00b4d8" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="350,170 380,145 410,155 440,120 470,130 500,100 530,110 560,90 560,175 350,175"
+            fill="#00b4d8" opacity=".08"/>
+          <!-- Data points -->
+          <circle cx="500" cy="100" r="5" fill="#00b4d8"/>
+          <circle cx="560" cy="90"  r="5" fill="#1b4fb3"/>
+
+          <!-- Vehicle list -->
+          <rect x="30" y="215" width="555" height="140" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+          <rect x="30" y="215" width="555" height="8" rx="12" fill="#0a1628"/>
+          <rect x="50" y="243" width="60" height="8" rx="4" fill="#e2e8f0"/>
+          <rect x="140" y="243" width="80" height="8" rx="4" fill="#e2e8f0"/>
+          <rect x="350" y="243" width="60" height="8" rx="4" fill="#e2e8f0"/>
+          <rect x="460" y="243" width="100" height="8" rx="4" fill="#e2e8f0"/>
+
+          {[0,1,2].map((i: number) => (
+            <>
+              <rect x="50"  y={268 + i*22} width="50" height="7" rx="3" fill="#f1f5f9"/>
+              <rect x="140" y={268 + i*22} width="75" height="7" rx="3" fill="#f1f5f9"/>
+              <rect x="350" y={268 + i*22} width="40" height="7" rx="3" fill={i===0?'#dcfce7':i===1?'#fef3c7':'#fee2e2'} opacity=".9"/>
+              <circle cx={490 + i*8} cy={272 + i*22} r="4" fill={i===0?'#22c55e':i===1?'#f59e0b':'#ef4444'} opacity=".7"/>
+            </>
+          ))}
+
+          <!-- Map pin decorations -->
+          <circle cx="530" cy="80" r="18" fill="#f0f5ff" stroke="#1b4fb3" stroke-width="1.5"/>
+          <text x="530" y="85" text-anchor="middle" font-size="14" fill="#1b4fb3">📍</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
