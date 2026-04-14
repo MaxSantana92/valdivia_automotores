@@ -45,6 +45,8 @@ export const es = {
     title: 'Catálogo de Alto Rango',
     see_all: 'Ver todos los modelos',
     cta: 'Detalles Técnicos',
+    modal_close: 'Cerrar',
+    modal_cta: 'Consultar esta unidad',
     vehicles: [
       {
         brand: 'BAIC',
@@ -99,6 +101,10 @@ export const es = {
       message: 'Descripción de la solicitud',
     },
     submit: 'Enviar Consulta',
+    err_required: 'Campo requerido',
+    err_email: 'Email inválido',
+    success_title: '¡Consulta Enviada!',
+    success_body: 'Un asesor se contactará en menos de 2 horas hábiles.',
   },
   footer: {
     copy: '© 2024 Valdivia Automotores. Precision Engineered.',

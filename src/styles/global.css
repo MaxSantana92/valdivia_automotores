@@ -160,3 +160,127 @@ body {
     opacity: 0;
   }
 }
+
+/* ── PREFERS REDUCED MOTION ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-reveal,
+  .scroll-reveal.reveal-left,
+  .scroll-reveal.reveal-right,
+  .scroll-reveal.reveal-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .stagger > * { transition-delay: 0s !important; }
+  .skeleton-loader { animation: none; background: #f0f0f0; }
+  .whatsapp-float .whatsapp-pulse { animation: none; opacity: 0; }
+  .hero-ken-burns { animation: none !important; }
+  .marquee-track { animation: none !important; }
+  .hero-scroll-hint { animation: none !important; }
+}
+
+/* ── INTERACTIVE LINKS / TAGS ───────────────────── */
+.nav-link-desk {
+  position: relative;
+  display: inline-block;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.nav-link-desk::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #1b4fb3, #00b4d8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-link-desk:hover::after,
+.nav-link-desk:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.tag-pill {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.tag-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 79, 179, 0.12);
+}
+
+.footer-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #1b4fb3;
+  transform: translateY(-1px);
+}
+
+/* Focus visible (elementos interactivos) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid #1b4fb3;
+  outline-offset: 3px;
+}
+button:focus-visible,
+a:focus-visible {
+  outline-offset: 2px;
+}
+
+.input-underline:focus-visible {
+  outline: none;
+  border-bottom-color: #1b4fb3;
+  box-shadow: 0 2px 0 0 #1b4fb3;
+}
+
+/* Hero */
+@keyframes hero-ken-burns {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+.hero-ken-burns {
+  animation: hero-ken-burns 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes scroll-hint-bob {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
+  50% { transform: translate(-50%, 6px); opacity: 1; }
+}
+.hero-scroll-hint {
+  animation: scroll-hint-bob 2s ease-in-out infinite;
+}
+
+/* Partners marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Modal dialog — centrado en viewport (showModal) */
+.vehicle-dialog::backdrop {
+  background: rgba(10, 22, 40, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+/* Section line reveal */
+.section-line {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section-line.is-visible {
+  transform: scaleX(1);
+}

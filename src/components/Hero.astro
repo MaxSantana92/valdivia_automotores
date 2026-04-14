@@ -7,20 +7,26 @@ interface Props { t: Translations; }
 const { t } = Astro.props;
 ---
 
-<section id="hero" class="scroll-reveal reveal-left relative min-h-[100dvh] min-h-screen w-full flex items-center overflow-hidden bg-slate-100 pt-[max(5.25rem,env(safe-area-inset-top,0px))] pb-10 md:pb-12">
+<section id="hero" class="relative min-h-[100dvh] min-h-screen w-full flex items-center overflow-hidden bg-slate-100 pt-[max(5.25rem,env(safe-area-inset-top,0px))] pb-10 md:pb-12 scroll-reveal reveal-left">
 
-  <!-- Foto principal + overlay para legibilidad del copy -->
-  <div class="absolute inset-0 z-0">
-    <Image
-      src={heroBackground}
-      alt=""
-      widths={[768, 1280, 1920, 2560]}
-      sizes="100vw"
-      class="absolute inset-0 h-full w-full object-cover object-center"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high"
-    />
+  <!-- Foto principal + overlay -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div
+      id="hero-parallax-wrap"
+      class="absolute inset-0 will-change-transform md:scale-[1.12]"
+      data-parallax="hero"
+    >
+      <Image
+        src={heroBackground}
+        alt=""
+        widths={[768, 1280, 1920, 2560]}
+        sizes="100vw"
+        class="absolute inset-0 h-full w-full object-cover object-center hero-ken-burns"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </div>
     <div
       class="absolute inset-0"
       style="background:linear-gradient(100deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.88) 38%, rgba(255,255,255,.35) 62%, rgba(255,255,255,.08) 100%);"
@@ -43,13 +49,45 @@ const { t } = Astro.props;
 
     <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto max-w-md sm:max-w-none">
       <a href="#contact"
-        class="diagonal-btn bg-primary-gradient text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg text-center justify-center w-full sm:w-auto">
+        class="diagonal-btn bg-primary-gradient text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg text-center justify-center w-full sm:w-auto transition-transform hover:scale-[1.02] active:scale-[0.98]">
         {t.hero.cta1}
       </a>
       <a href="#catalog"
-        class="diagonal-btn border-2 border-secondary text-secondary px-8 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg hover:bg-secondary hover:text-white transition-colors text-center justify-center w-full sm:w-auto">
+        class="diagonal-btn border-2 border-secondary text-secondary px-8 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg hover:bg-secondary hover:text-white transition-all text-center justify-center w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98]">
         {t.hero.cta2}
       </a>
     </div>
   </div>
+
+  <!-- Indicador scroll (desktop) -->
+  <a
+    href="#specialty"
+    class="hero-scroll-hint absolute bottom-6 left-1/2 z-10 hidden md:flex flex-col items-center gap-1 text-primary/80 hover:text-primary transition-colors"
+    aria-label="Scroll to content"
+  >
+    <span class="text-[10px] font-headline uppercase tracking-[0.25em]">Scroll</span>
+    <span class="material-symbols-outlined text-3xl">keyboard_arrow_down</span>
+  </a>
 </section>
+
+<script>
+  const wrap = document.getElementById('hero-parallax-wrap');
+  const hero = document.getElementById('hero');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mq = window.matchMedia('(min-width: 768px)');
+
+  function applyParallax() {
+    if (!wrap || !hero || reduce || !mq.matches) {
+      if (wrap) wrap.style.transform = '';
+      return;
+    }
+    const rect = hero.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+    const y = Math.min(56, window.scrollY * 0.14);
+    wrap.style.transform = `translateY(${y}px) scale(1.12)`;
+  }
+
+  window.addEventListener('scroll', applyParallax, { passive: true });
+  applyParallax();
+  mq.addEventListener('change', applyParallax);
+</script>

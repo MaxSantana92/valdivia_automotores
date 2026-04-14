@@ -1,50 +1,275 @@
 ---
-import type { Translations } from '../i18n/index';
-interface Props { t: Translations; }
-const { t } = Astro.props;
+import type { Locale, Translations } from '../i18n/index';
+
+interface Props { t: Translations; lang: Locale; }
+const { t, lang } = Astro.props;
+
+const testimonials =
+  lang === 'es'
+    ? [
+        {
+          quote:
+            'Valdivia Automotores transformó nuestra logística operacional en los Andes. El soporte técnico 24/7 garantiza que nuestra producción nunca se detenga.',
+          author: 'Ing. Ricardo Méndez',
+          role: 'Director de Logística — Minera del Norte',
+        },
+        {
+          quote:
+            'Flota homogénea, telemetría clara y tiempos de respuesta reales. Para operaciones remotas es la diferencia entre parar o seguir extrayendo.',
+          author: 'María Páez',
+          role: 'Jefa de Supply Chain — Andes Copper',
+        },
+        {
+          quote:
+            'Desde la cotización hasta el primer service, el equipo entiende normativa minera y exigencias de altura. Socios, no solo proveedores.',
+          author: 'Carlos Ibáñez',
+          role: 'Gerente de Operaciones — Litio Sur',
+        },
+      ]
+    : [
+        {
+          quote:
+            'Valdivia Automotores transformed our operational logistics in the Andes. 24/7 technical support ensures our production never stops.',
+          author: 'Eng. Ricardo Méndez',
+          role: 'Logistics Director — Minera del Norte',
+        },
+        {
+          quote:
+            'A homogeneous fleet, clear telemetry, and real response times. For remote operations, that is the difference between stopping and extracting.',
+          author: 'María Páez',
+          role: 'Head of Supply Chain — Andes Copper',
+        },
+        {
+          quote:
+            'From quoting to first service, the team understands mining regulations and altitude constraints. Partners, not just vendors.',
+          author: 'Carlos Ibáñez',
+          role: 'Operations Manager — Litio Sur',
+        },
+      ];
+
+const stats =
+  lang === 'es'
+    ? [
+        { value: 120, suffix: '+', label: 'Flotas asesoradas' },
+        { value: 15, suffix: ' años', label: 'En operación' },
+        { value: 48, suffix: 'h', label: 'Respuesta estándar' },
+      ]
+    : [
+        { value: 120, suffix: '+', label: 'Fleets advised' },
+        { value: 15, suffix: ' yrs', label: 'In operation' },
+        { value: 48, suffix: 'h', label: 'Standard response' },
+      ];
 ---
 
 <section class="scroll-reveal reveal-right py-14 sm:py-16 md:py-20 bg-white overflow-hidden border-t border-slate-100">
 
-  <!-- Brand logos -->
-  <div class="px-5 sm:px-8 md:px-16 lg:px-24 mb-12 sm:mb-16 max-w-7xl mx-auto">
-    <p class="text-center text-xs font-headline uppercase font-bold text-slate-400 mb-10" style="letter-spacing:.5em;">
-      {t.partners.label}
-    </p>
-    <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-20 opacity-40 hover:opacity-100 transition-opacity duration-700 grayscale hover:grayscale-0">
-      {t.partners.brands.map(brand => (
-        <div class="text-2xl sm:text-3xl md:text-4xl font-black font-headline text-secondary tracking-tighter text-center">
-          {brand}
+  <!-- Stats -->
+  <div class="px-5 sm:px-8 md:px-16 lg:px-24 mb-12 sm:mb-14 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+      {stats.map((s) => (
+        <div class="text-center p-6 rounded-2xl bg-surface border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <p
+            class="font-headline font-black text-4xl sm:text-5xl text-primary tabular-nums"
+            data-counter={s.value}
+            data-suffix={s.suffix}
+          >
+            0
+          </p>
+          <p class="mt-2 text-xs font-headline uppercase font-bold text-slate-500 tracking-wider">{s.label}</p>
         </div>
       ))}
     </div>
   </div>
 
-  <!-- Divider -->
-  <div class="h-px mx-5 sm:mx-8 md:mx-16 lg:mx-24 mb-12 sm:mb-16" style="background:linear-gradient(90deg,transparent,#e2e8f0,transparent);"></div>
+  <!-- Brand logos marquee -->
+  <div class="px-5 sm:px-8 md:px-16 lg:px-24 mb-12 sm:mb-16 max-w-7xl mx-auto">
+    <p class="text-center text-xs font-headline uppercase font-bold text-slate-400 mb-8" style="letter-spacing:.5em;">
+      {t.partners.label}
+    </p>
+    <div class="marquee-wrap relative overflow-hidden mask-linear-fade">
+      <div class="marquee-track flex w-max gap-16 sm:gap-24 md:gap-32 items-center">
+        {[...t.partners.brands, ...t.partners.brands].map((brand) => (
+          <div class="text-2xl sm:text-3xl md:text-4xl font-black font-headline text-secondary/50 tracking-tighter whitespace-nowrap shrink-0 hover:text-primary transition-colors duration-300">
+            {brand}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 
-  <!-- Testimonial -->
+  <!-- Divider -->
+  <div class="section-line h-px mx-5 sm:mx-8 md:mx-16 lg:mx-24 mb-12 sm:mb-16 bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+
+  <!-- Testimonial carousel -->
   <div class="px-5 sm:px-8 md:px-16 lg:px-24 max-w-4xl mx-auto">
-    <div class="bg-surface p-6 sm:p-10 md:p-14 rounded-3xl sm:rounded-[2.5rem] relative border border-slate-50 shadow-inner">
-      <!-- Quote icon -->
-      <span class="material-symbols-outlined absolute -top-8 -left-6 text-primary"
-        style="font-size:5rem;opacity:.1;font-variation-settings:'FILL' 1,'wght' 400;">
+    <div class="bg-surface p-6 sm:p-10 md:p-14 rounded-3xl sm:rounded-[2.5rem] relative border border-slate-50 shadow-inner overflow-hidden">
+      <span class="material-symbols-outlined absolute -top-4 left-4 sm:-top-8 sm:-left-6 text-primary pointer-events-none"
+        style="font-size:4rem;opacity:.08;font-variation-settings:'FILL' 1,'wght' 400;">
         format_quote
       </span>
 
-      <p class="text-lg sm:text-xl md:text-2xl font-body italic leading-relaxed text-secondary font-medium">
-        {t.partners.quote}
-      </p>
+      <div id="tq-carousel" class="relative min-h-[12rem] sm:min-h-[10rem]">
+        {testimonials.map((item, i) => (
+          <blockquote
+            class:list={[
+              'tq-slide transition-opacity duration-500 ease-out',
+              i === 0 ? 'relative opacity-100 z-10' : 'absolute inset-0 opacity-0 z-0 pointer-events-none',
+            ]}
+            data-tq-index={i}
+          >
+            <p class="text-lg sm:text-xl md:text-2xl font-body italic leading-relaxed text-secondary font-medium">
+              &ldquo;{item.quote}&rdquo;
+            </p>
+            <footer class="mt-10 flex items-center gap-5">
+              <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-primary" style="font-size:1.75rem;">person</span>
+              </div>
+              <div>
+                <cite class="not-italic font-bold font-headline uppercase text-secondary text-lg" style="letter-spacing:.12em;">{item.author}</cite>
+                <p class="text-sm text-slate-500 font-medium mt-0.5">{item.role}</p>
+              </div>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
 
-      <div class="mt-10 flex items-center gap-5">
-        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-          <span class="material-symbols-outlined text-primary" style="font-size:1.75rem;">person</span>
-        </div>
-        <div>
-          <p class="font-bold font-headline uppercase text-secondary text-lg" style="letter-spacing:.12em;">{t.partners.author_name}</p>
-          <p class="text-sm text-slate-500 font-medium mt-0.5">{t.partners.author_role}</p>
-        </div>
+      <div class="flex items-center justify-center gap-3 mt-8">
+        {testimonials.map((_, i) => (
+          <button
+            type="button"
+            class:list={[
+              'tq-dot h-2 rounded-full transition-all duration-300',
+              i === 0 ? 'w-8 bg-primary' : 'w-2 bg-slate-300 hover:bg-slate-400',
+            ]}
+            data-tq-go={i}
+            aria-label={`Testimonio ${i + 1}`}
+          />
+        ))}
+      </div>
+
+      <div class="flex justify-center gap-4 mt-4">
+        <button type="button" id="tq-prev" class="rounded-full border border-slate-200 p-2 text-secondary hover:bg-white hover:border-primary hover:text-primary transition-colors" aria-label="Anterior">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button type="button" id="tq-next" class="rounded-full border border-slate-200 p-2 text-secondary hover:bg-white hover:border-primary hover:text-primary transition-colors" aria-label="Siguiente">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .mask-linear-fade {
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+</style>
+
+<script>
+  /* Testimonial carousel */
+  const slides = document.querySelectorAll('.tq-slide');
+  const dots = document.querySelectorAll('.tq-dot');
+  let idx = 0;
+  let timer = null;
+
+  function show(i) {
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s, j) => {
+      const on = j === idx;
+      s.classList.toggle('relative', on);
+      s.classList.toggle('absolute', !on);
+      s.classList.toggle('inset-0', !on);
+      s.classList.toggle('opacity-100', on);
+      s.classList.toggle('opacity-0', !on);
+      s.classList.toggle('z-10', on);
+      s.classList.toggle('z-0', !on);
+      s.classList.toggle('pointer-events-none', !on);
+    });
+    dots.forEach((d, j) => {
+      d.classList.toggle('w-8', j === idx);
+      d.classList.toggle('bg-primary', j === idx);
+      d.classList.toggle('w-2', j !== idx);
+      d.classList.toggle('bg-slate-300', j !== idx);
+    });
+  }
+
+  function next() {
+    show(idx + 1);
+  }
+  function prev() {
+    show(idx - 1);
+  }
+
+  function startAuto() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    timer = setInterval(next, 8000);
+  }
+  function stopAuto() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  document.getElementById('tq-next')?.addEventListener('click', () => {
+    next();
+    stopAuto();
+    startAuto();
+  });
+  document.getElementById('tq-prev')?.addEventListener('click', () => {
+    prev();
+    stopAuto();
+    startAuto();
+  });
+
+  dots.forEach((d) => {
+    d.addEventListener('click', () => {
+      const i = Number(d.getAttribute('data-tq-go'));
+      show(i);
+      stopAuto();
+      startAuto();
+    });
+  });
+
+  const root = document.getElementById('tq-carousel');
+  root?.addEventListener('mouseenter', stopAuto);
+  root?.addEventListener('mouseleave', startAuto);
+  startAuto();
+
+  /* Counter animation */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = document.querySelectorAll('[data-counter]');
+
+  function runCounters() {
+    counters.forEach((el) => {
+      const target = Number(el.getAttribute('data-counter'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      if (reduce || !Number.isFinite(target)) {
+        el.textContent = `${target}${suffix}`;
+        return;
+      }
+      const dur = 1400;
+      const t0 = performance.now();
+      function frame(now) {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - (1 - p) ** 3;
+        const val = Math.round(target * eased);
+        el.textContent = `${val}${suffix}`;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  const statsSection = document.querySelector('[data-counter]')?.closest('section');
+  let counted = false;
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting) && !counted) {
+        counted = true;
+        runCounters();
+        io.disconnect();
+      }
+    },
+    { threshold: 0.2 }
+  );
+  if (statsSection) io.observe(statsSection);
+</script>

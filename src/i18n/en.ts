@@ -47,6 +47,8 @@ export const en: Translations = {
     title: 'High-Range Catalog',
     see_all: 'See all models',
     cta: 'Technical Details',
+    modal_close: 'Close',
+    modal_cta: 'Inquire about this unit',
     vehicles: [
       {
         brand: 'BAIC',
@@ -101,6 +103,10 @@ export const en: Translations = {
       message: 'Description of the request',
     },
     submit: 'Send Inquiry',
+    err_required: 'Required field',
+    err_email: 'Invalid email',
+    success_title: 'Message sent!',
+    success_body: 'An advisor will reach out within 2 business hours.',
   },
   footer: {
     copy: '© 2024 Valdivia Automotores. Precision Engineered.',

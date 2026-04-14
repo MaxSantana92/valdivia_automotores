@@ -1,18 +1,67 @@
 ---
 import { Image } from 'astro:assets';
-import type { Translations } from '../i18n/index';
+import type { Locale, Translations } from '../i18n/index';
 import imgBaic from '../assets/vehicles/WhatsApp-Image-2026-04-10-at-1.10.06-PM.webp';
 import imgByd from '../assets/vehicles/WhatsApp-Image-2026-04-10-at-12.35.30-PM.webp';
 import imgFoton from '../assets/vehicles/WhatsApp-Image-2026-04-10-at-1.10.06-PM-_4_.webp';
 
-interface Props { t: Translations; }
-const { t } = Astro.props;
+interface Props { t: Translations; lang: Locale; }
+const { t, lang } = Astro.props;
 
-/** BAIC · BYD · FOTON — la cuarta foto (`…-_5_.webp`) queda disponible si sumás otro modelo o cambiás la asignación aquí */
 const vehiclePhoto: Record<string, typeof imgBaic> = {
   BAIC: imgBaic,
   BYD: imgByd,
   FOTON: imgFoton,
+};
+
+type SpecRow = { label: string; value: string };
+const vehicleSpecs: Record<Locale, Record<string, SpecRow[]>> = {
+  es: {
+    BAIC: [
+      { label: 'Motor', value: '2.3 L Turbo diésel' },
+      { label: 'Potencia', value: '250 CV' },
+      { label: 'Tracción', value: '4WD con bloqueos' },
+      { label: 'Ángulo ataque', value: '37° (config. minero)' },
+      { label: 'Blindaje', value: 'Carcasa inferior reforzada' },
+    ],
+    BYD: [
+      { label: 'Tipo', value: '100% eléctrico / Furgón' },
+      { label: 'Batería', value: '50 kWh LFP' },
+      { label: 'Autonomía', value: '~300 km (mixto)' },
+      { label: 'Carga AC', value: '11 kW' },
+      { label: 'Uso', value: 'Campamentos y logística urbana' },
+    ],
+    FOTON: [
+      { label: 'Configuración', value: 'Chasis cabina + caja' },
+      { label: 'Carga útil', value: '1.000 kg' },
+      { label: 'Motor', value: 'Diésel common rail' },
+      { label: 'Suspensión', value: 'Refuerzo anti-roll' },
+      { label: 'Aplicación', value: 'Materiales y suministros' },
+    ],
+  },
+  en: {
+    BAIC: [
+      { label: 'Engine', value: '2.3 L Turbo diesel' },
+      { label: 'Power', value: '250 hp' },
+      { label: 'Drive', value: '4WD with lockable diffs' },
+      { label: 'Approach angle', value: '37° (mining setup)' },
+      { label: 'Skid plates', value: 'Heavy-duty underbody' },
+    ],
+    BYD: [
+      { label: 'Type', value: 'All-electric van' },
+      { label: 'Battery', value: '50 kWh LFP' },
+      { label: 'Range', value: '~300 km (mixed)' },
+      { label: 'AC charging', value: '11 kW' },
+      { label: 'Use case', value: 'Camps & urban logistics' },
+    ],
+    FOTON: [
+      { label: 'Layout', value: 'Cab-chassis + cargo box' },
+      { label: 'Payload', value: '1,000 kg' },
+      { label: 'Engine', value: 'Common-rail diesel' },
+      { label: 'Suspension', value: 'Anti-roll reinforcement' },
+      { label: 'Application', value: 'Materials & supplies' },
+    ],
+  },
 };
 ---
 
@@ -25,7 +74,7 @@ const vehiclePhoto: Record<string, typeof imgBaic> = {
         <h2 class="text-sm font-headline text-primary uppercase mb-4" style="letter-spacing:.3em;">{t.catalog.badge}</h2>
         <h3 class="font-headline font-black uppercase" style="font-size:clamp(2rem,5vw,3.75rem);">{t.catalog.title}</h3>
       </div>
-      <button type="button" class="font-headline uppercase font-bold text-primary border-b-2 border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors" style="letter-spacing:.15em;font-size:.875rem;">
+      <button type="button" class="font-headline uppercase font-bold text-primary border-b-2 border-primary pb-1 hover:text-secondary hover:border-secondary transition-all duration-200 hover:translate-x-0.5" style="letter-spacing:.15em;font-size:.875rem;">
         {t.catalog.see_all}
       </button>
     </div>
@@ -34,13 +83,12 @@ const vehiclePhoto: Record<string, typeof imgBaic> = {
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 stagger">
       {t.catalog.vehicles.map((v) => (
         <div class="perspective-card group scroll-reveal reveal-up">
-          <div class="perspective-card-inner bg-surface rounded-3xl p-6 sm:p-8 border border-slate-100 relative overflow-hidden shadow-sm flex flex-col min-h-[32rem] sm:min-h-[36rem] md:min-h-[540px] md:h-[540px]">
-
-            <!-- Watermark brand -->
+          <div
+            class="perspective-card-inner bg-surface rounded-3xl p-6 sm:p-8 border border-slate-100 relative overflow-hidden shadow-sm flex flex-col min-h-[32rem] sm:min-h-[36rem] md:min-h-[540px] md:h-[540px] transition-shadow duration-300 hover:shadow-xl hover:border-primary/15 focus-within:shadow-xl focus-within:ring-2 focus-within:ring-primary/25 focus-within:border-primary/20"
+          >
             <div class="absolute top-4 sm:top-6 right-6 sm:right-8 font-headline font-black text-secondary opacity-5 pointer-events-none select-none"
               style="font-size:clamp(2.5rem,8vw,3.5rem);">{v.brand}</div>
 
-            <!-- Foto del vehículo -->
             <div class="relative mt-2 sm:mt-4 aspect-[16/10] w-full overflow-hidden rounded-lg bg-slate-200/80 ring-1 ring-slate-200/80">
               <Image
                 src={vehiclePhoto[v.brand] ?? imgBaic}
@@ -53,15 +101,13 @@ const vehiclePhoto: Record<string, typeof imgBaic> = {
               />
             </div>
 
-            <!-- Info -->
             <div class="mt-5 sm:mt-6 flex-1 flex flex-col pb-20 md:pb-24">
               <h4 class="text-xl sm:text-2xl font-headline font-bold uppercase tracking-tight text-secondary">{v.model}</h4>
               <p class="text-slate-500 mt-2 text-sm font-medium leading-relaxed">{v.desc}</p>
 
-              <!-- Tags -->
               <div class="mt-4 sm:mt-5 flex flex-wrap gap-2 sm:gap-3">
                 {v.tags.map((tag, ti) => (
-                  <span class={`text-xs font-headline uppercase font-bold px-3 py-1 rounded-full ${
+                  <span class={`tag-pill text-xs font-headline uppercase font-bold px-3 py-1 rounded-full ${
                     v.tag_style[ti] === 'primary'
                       ? 'bg-primary/10 text-primary'
                       : 'bg-white border border-slate-200 text-slate-600'
@@ -72,9 +118,13 @@ const vehiclePhoto: Record<string, typeof imgBaic> = {
               </div>
             </div>
 
-            <!-- CTA: siempre visible en móvil/tablet; hover en escritorio -->
-            <div class="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8 translate-y-0 opacity-100 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300">
-              <button type="button" class="diagonal-btn w-full bg-primary-gradient text-white px-8 sm:px-10 py-2.5 sm:py-3 text-sm font-headline font-bold">
+            <div class="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8 translate-y-0 opacity-100 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 transition-all duration-300">
+              <button
+                type="button"
+                class="vehicle-detail-open diagonal-btn w-full bg-primary-gradient text-white px-8 sm:px-10 py-2.5 sm:py-3 text-sm font-headline font-bold"
+                data-brand={v.brand}
+                data-model={v.model}
+              >
                 {t.catalog.cta}
               </button>
             </div>
@@ -83,4 +133,60 @@ const vehiclePhoto: Record<string, typeof imgBaic> = {
       ))}
     </div>
   </div>
+
+  <dialog
+    id="vehicle-dialog"
+    class="vehicle-dialog fixed left-1/2 top-1/2 z-[1000] m-0 w-[min(100vw-2rem,28rem)] max-h-[min(90vh,40rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overscroll-contain rounded-2xl border border-slate-200 bg-white p-0 text-secondary shadow-2xl"
+  >
+    <div class="p-6 sm:p-8">
+      <div class="flex justify-between items-start gap-4 mb-6">
+        <h3 id="vehicle-dialog-title" class="font-headline font-black text-lg sm:text-xl uppercase leading-tight pr-2"></h3>
+        <button type="button" id="vehicle-dialog-close" class="shrink-0 rounded-lg p-2 text-slate-500 hover:text-primary hover:bg-slate-50 transition-colors" aria-label={t.catalog.modal_close}>
+          <span class="material-symbols-outlined text-2xl" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <dl id="vehicle-dialog-specs" class="space-y-3"></dl>
+      <a href="#contact" id="vehicle-dialog-cta" class="diagonal-btn mt-8 inline-flex w-full bg-primary-gradient text-white px-6 py-3 text-sm font-headline font-bold justify-center">
+        {t.catalog.modal_cta}
+      </a>
+    </div>
+  </dialog>
 </section>
+
+<script define:vars={{ vehicleSpecs, lang }}>
+  const dialog = document.getElementById('vehicle-dialog');
+  const titleEl = document.getElementById('vehicle-dialog-title');
+  const specsEl = document.getElementById('vehicle-dialog-specs');
+  const closeBtn = document.getElementById('vehicle-dialog-close');
+
+  function openModal(brand, model) {
+    const rows = vehicleSpecs[lang][brand];
+    if (!rows || !dialog || !titleEl || !specsEl) return;
+    titleEl.textContent = model || brand;
+    specsEl.innerHTML = rows
+      .map(
+        (r) =>
+          `<div class="flex justify-between gap-4 py-2 border-b border-slate-100 last:border-0"><dt class="text-xs font-headline uppercase font-bold text-slate-400 tracking-wider">${r.label}</dt><dd class="text-sm font-bold text-secondary text-right">${r.value}</dd></div>`
+      )
+      .join('');
+    dialog.showModal();
+  }
+
+  function closeModal() {
+    dialog?.close();
+  }
+
+  document.querySelectorAll('.vehicle-detail-open').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const brand = btn.getAttribute('data-brand');
+      const model = btn.getAttribute('data-model');
+      if (brand) openModal(brand, model || '');
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) closeModal();
+  });
+  dialog?.addEventListener('close', () => {});
+</script>
